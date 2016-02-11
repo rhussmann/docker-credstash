@@ -7,9 +7,13 @@ dependencies:
     - docker build -t roylines/credstash:latest .
     - docker tag roylines/credstash:latest roylines/credstash:$CIRCLE_BUILD_NUM
 
+test:
+  override:
+    - docker run roylines/credstash:latest credstash -h
+
 deployment:
   hub:
-    branch: xmaster
+    branch: master
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push roylines/credstash
